@@ -1,9 +1,12 @@
 package com.dojo.foundations.parking.cell;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 
 public class Cell {
+
+    private final double WAIVE_TIME = 0.02;
 
     public String code;
     public CellTypeEnum type;
@@ -38,5 +41,12 @@ public class Cell {
 
     public void setEnterDateTime(Optional<LocalDateTime> enterDateTime) {
         this.enterDateTime = enterDateTime;
+    }
+
+    public int obtainHoursToCharge() {
+        double hours = (double) ChronoUnit.MINUTES.between(this.getEnterDateTime().get(), LocalDateTime.now()) / 60;
+        double completeHours = Math.floor(hours);
+        double incompleteHours = hours - completeHours;
+        return incompleteHours <= WAIVE_TIME ? (int) completeHours: (int) Math.ceil(hours);
     }
 }
