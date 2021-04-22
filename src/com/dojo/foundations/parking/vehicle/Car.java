@@ -1,10 +1,16 @@
 package com.dojo.foundations.parking.vehicle;
 
-public class Car {
+import com.dojo.foundations.parking.cell.RateEnum;
 
-    public String plate;
+public class Car extends Vehicle {
 
     public Car (String plate) {
-        this.plate = plate;
+        super(plate);
     }
+
+    @Override
+    public double calculateBilling(double hoursToCharge) {
+        return hoursToCharge * RateEnum.CAR.getRate();
+    }
+
 }

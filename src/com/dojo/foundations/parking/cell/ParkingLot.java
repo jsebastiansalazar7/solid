@@ -13,4 +13,12 @@ public class ParkingLot {
     public List<Cell> getParkingLot() {
         return parkingLot;
     }
+
+    public long getParkingLotOccupation() {
+        return this.getParkingLot().stream().filter(entry -> !entry.isFree()).count();
+    }
+
+    public long getFreeCells() {
+        return this.getParkingLot().stream().filter(Cell::isFree).count();
+    }
 }
